@@ -114,18 +114,17 @@ print <<EOF;
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build darwin linux
+// +build linux
 // +build cgo
 
 package $package
 
 import "unsafe"
 
-// #cgo darwin LDFLAGS: -lodbc -L/opt/local/lib
-// #cgo darwin CFLAGS: -I/opt/local/include
-// #cgo linux LDFLAGS: -lodbc
-// #include <sql.h>
-// #include <sqlext.h>
+// #cgo linux LDFLAGS: -ldmapic -L/home/dbmaker/5.4/lib/so
+// #cgo linux CFLAGS: -I/home/dbmaker/5.4/include
+// #include "sql.h"
+// #include "sqlext.h"
 import "C"
 
 $text

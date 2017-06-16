@@ -2,12 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package odbc
+package dbmaker
 
 import (
 	"fmt"
 
-	"github.com/alexbrainman/odbc/api"
+	"github.com/dbmaker-go/dbmaker/api"
 )
 
 func ToHandleAndType(handle interface{}) (h api.SQLHANDLE, ht api.SQLSMALLINT) {

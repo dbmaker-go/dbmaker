@@ -5,8 +5,6 @@ package api
 import (
 	"syscall"
 	"unsafe"
-
-	"golang.org/x/sys/windows"
 )
 
 var _ unsafe.Pointer
@@ -37,28 +35,28 @@ func errnoErr(e syscall.Errno) error {
 }
 
 var (
-	mododbc32 = windows.NewLazySystemDLL("odbc32.dll")
+	moddmapi54 = syscall.NewLazyDLL("dmapi54.dll")
 
-	procSQLAllocHandle     = mododbc32.NewProc("SQLAllocHandle")
-	procSQLBindCol         = mododbc32.NewProc("SQLBindCol")
-	procSQLBindParameter   = mododbc32.NewProc("SQLBindParameter")
-	procSQLCloseCursor     = mododbc32.NewProc("SQLCloseCursor")
-	procSQLDescribeColW    = mododbc32.NewProc("SQLDescribeColW")
-	procSQLDescribeParam   = mododbc32.NewProc("SQLDescribeParam")
-	procSQLDisconnect      = mododbc32.NewProc("SQLDisconnect")
-	procSQLDriverConnectW  = mododbc32.NewProc("SQLDriverConnectW")
-	procSQLEndTran         = mododbc32.NewProc("SQLEndTran")
-	procSQLExecute         = mododbc32.NewProc("SQLExecute")
-	procSQLFetch           = mododbc32.NewProc("SQLFetch")
-	procSQLFreeHandle      = mododbc32.NewProc("SQLFreeHandle")
-	procSQLGetData         = mododbc32.NewProc("SQLGetData")
-	procSQLGetDiagRecW     = mododbc32.NewProc("SQLGetDiagRecW")
-	procSQLNumParams       = mododbc32.NewProc("SQLNumParams")
-	procSQLNumResultCols   = mododbc32.NewProc("SQLNumResultCols")
-	procSQLPrepareW        = mododbc32.NewProc("SQLPrepareW")
-	procSQLRowCount        = mododbc32.NewProc("SQLRowCount")
-	procSQLSetEnvAttr      = mododbc32.NewProc("SQLSetEnvAttr")
-	procSQLSetConnectAttrW = mododbc32.NewProc("SQLSetConnectAttrW")
+	procSQLAllocHandle     = moddmapi54.NewProc("SQLAllocHandle")
+	procSQLBindCol         = moddmapi54.NewProc("SQLBindCol")
+	procSQLBindParameter   = moddmapi54.NewProc("SQLBindParameter")
+	procSQLCloseCursor     = moddmapi54.NewProc("SQLCloseCursor")
+	procSQLDescribeColW    = moddmapi54.NewProc("SQLDescribeColW")
+	procSQLDescribeParam   = moddmapi54.NewProc("SQLDescribeParam")
+	procSQLDisconnect      = moddmapi54.NewProc("SQLDisconnect")
+	procSQLDriverConnectW  = moddmapi54.NewProc("SQLDriverConnectW")
+	procSQLEndTran         = moddmapi54.NewProc("SQLEndTran")
+	procSQLExecute         = moddmapi54.NewProc("SQLExecute")
+	procSQLFetch           = moddmapi54.NewProc("SQLFetch")
+	procSQLFreeHandle      = moddmapi54.NewProc("SQLFreeHandle")
+	procSQLGetData         = moddmapi54.NewProc("SQLGetData")
+	procSQLGetDiagRecW     = moddmapi54.NewProc("SQLGetDiagRecW")
+	procSQLNumParams       = moddmapi54.NewProc("SQLNumParams")
+	procSQLNumResultCols   = moddmapi54.NewProc("SQLNumResultCols")
+	procSQLPrepareW        = moddmapi54.NewProc("SQLPrepareW")
+	procSQLRowCount        = moddmapi54.NewProc("SQLRowCount")
+	procSQLSetEnvAttr      = moddmapi54.NewProc("SQLSetEnvAttr")
+	procSQLSetConnectAttrW = moddmapi54.NewProc("SQLSetConnectAttrW")
 )
 
 func SQLAllocHandle(handleType SQLSMALLINT, inputHandle SQLHANDLE, outputHandle *SQLHANDLE) (ret SQLRETURN) {

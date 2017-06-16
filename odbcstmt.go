@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package odbc
+package dbmaker
 
 import (
 	"database/sql/driver"
@@ -12,7 +12,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/alexbrainman/odbc/api"
+	"github.com/dbmaker-go/dbmaker/api"
 )
 
 // TODO(brainman): see if I could use SQLExecDirect anywhere

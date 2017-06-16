@@ -2,16 +2,15 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build darwin linux
+// +build linux
 // +build cgo
 
 package api
 
-// #cgo darwin LDFLAGS: -lodbc -L/opt/local/lib
-// #cgo darwin CFLAGS: -I/opt/local/include
-// #cgo linux LDFLAGS: -lodbc
-// #include <sql.h>
-// #include <sqlext.h>
+// #cgo linux LDFLAGS: -ldmapic -L/home/dbmaker/5.4/lib/so
+// #cgo linux CFLAGS: -I/home/dbmaker/5.4/include
+// #include "sql.h"
+// #include "sqlext.h"
 // #include <stdint.h>
 /*
 SQLRETURN sqlSetEnvUIntPtrAttr(SQLHENV environmentHandle, SQLINTEGER attribute, uintptr_t valuePtr, SQLINTEGER stringLength) {
@@ -79,7 +78,8 @@ const (
 	SQL_WCHAR           = C.SQL_WCHAR
 	SQL_WVARCHAR        = C.SQL_WVARCHAR
 	SQL_WLONGVARCHAR    = C.SQL_WLONGVARCHAR
-	SQL_GUID            = C.SQL_GUID
+	// DBMaker does not support GUID data type. Using windows value
+	SQL_GUID            = -11 // C.SQL_GUID
 	SQL_SIGNED_OFFSET   = C.SQL_SIGNED_OFFSET
 	SQL_UNSIGNED_OFFSET = C.SQL_UNSIGNED_OFFSET
 
@@ -102,7 +102,7 @@ const (
 	SQL_C_DEFAULT        = C.SQL_C_DEFAULT
 	SQL_C_SBIGINT        = C.SQL_C_SBIGINT
 	SQL_C_UBIGINT        = C.SQL_C_UBIGINT
-	SQL_C_GUID           = C.SQL_C_GUID
+	SQL_C_GUID           = SQL_GUID //C.SQL_C_GUID
 
 	SQL_COMMIT   = C.SQL_COMMIT
 	SQL_ROLLBACK = C.SQL_ROLLBACK
@@ -145,7 +145,14 @@ type (
 	SQLLEN  C.SQLLEN
 	SQLULEN C.SQLULEN
 
-	SQLGUID C.SQLGUID
+	//SQLGUID C.SQLGUID
+	// DBMaker does not support GUID
+	SQLGUID struct {
+		Data1 uint32
+		Data2 uint16
+		Data3 uint16
+		Data4 [8]byte
+	}
 )
 
 func SQLSetEnvUIntPtrAttr(environmentHandle SQLHENV, attribute SQLINTEGER, valuePtr uintptr, stringLength SQLINTEGER) (ret SQLRETURN) {

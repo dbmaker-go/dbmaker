@@ -4,12 +4,12 @@
 
 // Package odbc implements database/sql driver to access data via odbc interface.
 //
-package odbc
+package dbmaker
 
 import (
 	"database/sql"
 
-	"github.com/alexbrainman/odbc/api"
+	"github.com/dbmaker-go/dbmaker/api"
 )
 
 var drv Driver
@@ -37,7 +37,7 @@ func initDriver() error {
 		defer releaseHandle(drv.h)
 		return NewError("SQLSetEnvUIntPtrAttr", drv.h)
 	}
-
+/* DBMaker does not support connection pooling!!!
 	//TODO: find a way to make this attribute changeable at runtime
 	//Enable connection pooling
 	ret = api.SQLSetEnvUIntPtrAttr(drv.h, api.SQL_ATTR_CONNECTION_POOLING, api.SQL_CP_ONE_PER_HENV, api.SQL_IS_UINTEGER)
@@ -55,7 +55,7 @@ func initDriver() error {
 
 	//TODO: it would be nice if we could call "drv.SetMaxIdleConns(0)" here but from the docs it looks like
 	//the user must call this function after db.Open
-
+*/
 	return nil
 }
 
@@ -71,5 +71,5 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	sql.Register("odbc", &drv)
+	sql.Register("dbmaker", &drv)
 }
