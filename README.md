@@ -36,7 +36,10 @@ go test github.com/dbmaker-go/dbmaker ## need start DBSAMPLE5 DB before hand.
 
 A simple example:
 ```
-import "github.com/dbmaker-go/dbmaker"
+import (
+    "database/sql"
+    _ "github.com/dbmaker-go/dbmaker"
+)
 
 func main(){
 	db, err := sql.Open("dbmaker","DSN=DB1;UID=SYSADM;PWD=xxx;");
